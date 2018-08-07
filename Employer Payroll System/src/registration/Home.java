@@ -1,25 +1,17 @@
 package registration;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
-import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JPopupMenu;
-import java.awt.Component;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.Font;
 
+public class Home {
 
-public class Home extends JFrame {
-
-	private JPanel contentPane;
+	private JFrame frame;
 
 	/**
 	 * Launch the application.
@@ -28,8 +20,8 @@ public class Home extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Home frame = new Home();
-					frame.setVisible(true);
+					Home window = new Home();
+					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -38,80 +30,81 @@ public class Home extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Create the application.
 	 */
 	public Home() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 505, 381);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		JLabel lblEmployerPayrollSystem = new JLabel("Employer Payroll System - EPS");
-		lblEmployerPayrollSystem.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblEmployerPayrollSystem.setBounds(127, 11, 259, 32);
-		contentPane.add(lblEmployerPayrollSystem);
-		
-		JButton btnAdd = new JButton("ADD");
-		btnAdd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			
-			}
-		});
-		btnAdd.setBounds(188, 84, 89, 23);
-		contentPane.add(btnAdd);
-		
-		JButton btnView = new JButton("VIEW");
-		btnView.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-			}
-		});
-		btnView.setBounds(188, 130, 89, 23);
-		contentPane.add(btnView);
-		
-		JButton btnUpdate = new JButton("UPDATE");
-		btnUpdate.setBounds(188, 174, 89, 23);
-		contentPane.add(btnUpdate);
-		
-		JButton btnDelete = new JButton("DELETE");
-		btnDelete.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		btnDelete.setBounds(188, 223, 89, 23);
-		contentPane.add(btnDelete);
-		
-		JButton btnSearch = new JButton("SEARCH");
-		btnSearch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		btnSearch.setBounds(188, 275, 89, 23);
-		contentPane.add(btnSearch);
-		
-		JLabel lblHome = new JLabel("HOME");
-		lblHome.setBounds(433, 11, 46, 14);
-		contentPane.add(lblHome);
+		initialize();
 	}
-	private static void addPopup(Component component, final JPopupMenu popup) {
-		component.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			public void mouseReleased(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			private void showMenu(MouseEvent e) {
-				popup.show(e.getComponent(), e.getX(), e.getY());
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 550, 400);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+
+		// This is the heading at the top - label
+		JLabel lblNewLabel = new JLabel("PayRoll Management System");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNewLabel.setBounds(173, 31, 229, 14);
+		frame.getContentPane().add(lblNewLabel);
+
+		// Add - button
+		JButton btnNewButton = new JButton("Add");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// here we have called the class Add and made it visible
+				new Add().frame.setVisible(true);
+
 			}
 		});
+		btnNewButton.setBounds(96, 105, 89, 23);
+		frame.getContentPane().add(btnNewButton);
+
+		// Delete -  button
+		JButton btnNewButton_1 = new JButton("Delete");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// here we have called the class Delete and made it visible
+				new Delete().frame.setVisible(true);
+			}
+		});
+		btnNewButton_1.setBounds(342, 105, 89, 23);
+		frame.getContentPane().add(btnNewButton_1);
+
+		// Update - button
+		JButton btnNewButton_2 = new JButton("Update");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// here we have called class Update and made it visible
+				new Update().frame.setVisible(true);
+			}
+		});
+		btnNewButton_2.setBounds(96, 195, 89, 23);
+		frame.getContentPane().add(btnNewButton_2);
+
+		// View - button
+		JButton btnNewButton_3 = new JButton("View");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// here we have called class View and made it visible
+				new View().frame.setVisible(true);
+			}
+		});
+		btnNewButton_3.setBounds(342, 195, 89, 23);
+		frame.getContentPane().add(btnNewButton_3);
+
+		// Search -button
+		JButton btnNewButton_4 = new JButton("search");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// here we have called class Search and made it visible
+				new Search().frame.setVisible(true);
+			}
+		});
+		btnNewButton_4.setBounds(222, 274, 89, 23);
+		frame.getContentPane().add(btnNewButton_4);
 	}
 }

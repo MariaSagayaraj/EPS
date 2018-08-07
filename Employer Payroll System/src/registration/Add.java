@@ -22,6 +22,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 
 public class Add extends JFrame {
+	public Add() {
+	}
 
 	private JPanel contentPane;
 	private JTextField textField;
