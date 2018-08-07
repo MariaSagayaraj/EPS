@@ -1,4 +1,4 @@
-package LOGIN;
+package registration;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -18,7 +18,7 @@ import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
 import java.awt.Font;
 
-public class assignment1 extends JFrame {
+public class Payroll extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -37,7 +37,7 @@ public class assignment1 extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					assignment1 frame = new assignment1();
+					Payroll frame = new Payroll();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,7 +49,7 @@ public class assignment1 extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public assignment1() {
+	public Payroll() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 559);
 		contentPane = new JPanel();
