@@ -1,245 +1,302 @@
 package registration;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
-import java.awt.Color;
-import java.awt.Font;
-import javax.swing.JRadioButton;
-import javax.swing.JSplitPane;
-import javax.swing.JList;
-import javax.swing.border.MatteBorder;
-import javax.swing.UIManager;
-import java.awt.SystemColor;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
+import javax.swing.JTextField;
+import javax.swing.JTextArea;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JLabel;
 
-public class Add extends JFrame {
+import java.sql.*;
+import java.awt.Font;
+import javax.swing.JRadioButton;
+import java.awt.Color;
+
+public class Add {
+	public JFrame frame;
+	private JTextField textFieldID;
+	private JTextField textFieldName;
+	private JTextField textFieldDesig;
+	private JTextField textFieldStartD;
+	private JTextField textFieldEndD;
+	private JTextField textFieldSalary;
+	private JTextField textFieldDeparetment;
+	private JTextField textFieldDob;
+	String gender;
+	private JTextField textNoOfDays;	
+	boolean DateFormat(String Date) {
+
+		if (Date.substring(4, 5).equals("-") && Date.substring(7, 8).equals("-")) {
+			return true;
+		} else {
+			JOptionPane.showMessageDialog(frame, "Date format should be - yyyy/mm/dd");
+			return false;
+		}
+
+	}
+
+	//Adding the records in the database
+	public void addRecords(int id, String name, String dept, String adds, String desig, int salary, String startDate,
+		String endDate, String dob, String gender, int no_OfDays) throws Exception {
+		String url = "jdbc:mysql://localhost:3306/mydatabase";
+		String user_name = "root";
+		String pass = "";
+		salary *= no_OfDays;
+		int pf = (12 * salary) / 100;
+		String queryTwo = "insert into payroll values (" + id + ",'" + name + "','" + dept + "','" + adds + "','"
+				+ desig + "'," + salary + ",'" + startDate + "','" + endDate + "','" + dob + "','" + gender + "'," + pf
+				+ "," + no_OfDays + ")";
+
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con = DriverManager.getConnection(url, user_name, pass);
+		Statement st = con.createStatement();
+
+		int rs = st.executeUpdate(queryTwo);
+		System.out.println(rs);
+		st.close();
+		con.close();
+	}
+
+	// If the id is already used then it will return true else false
+	boolean checkID(int id) throws Exception {
+		String url = "jdbc:mysql://localhost:3306/mydatabase";
+		String name = "root";
+		String pass = "";
+		String query = "SELECT * FROM payroll";
+
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con = DriverManager.getConnection(url, name, pass);
+
+		Statement st = con.createStatement();
+		ResultSet rs = st.executeQuery(query);
+
+		while (rs.next()) {
+			if (rs.getInt(1) == id) {
+				// This means id is already used
+				st.close();
+				con.close();
+				return true;
+			}
+		}
+		st.close();
+		con.close();
+		return false;
+	}
+
+	/**
+	 * Create the application.
+	 */
 	public Add() {
-	}
-
-	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JRadioButton rdbtnMale;
-	private JRadioButton rdbtnFemale;
-	private JTextField textField_8;
-	private JTextField textField_9;
-	private JLabel lblLastName;
-	private JLabel lblEmployeeId;
-	private JLabel lblDob;
-	private JLabel lblGender;
-	private JLabel lblContact;
-	private JLabel lblAddress;
-	private JLabel lblVisaStatus;
-	private JLabel lblDateOfHiring;
-	private JLabel lblPosition;
-	private JLabel lblPassword;
-	private JLabel lblConfirmPassword;
-	private JLabel lblWelcomeEnterThe;
-	private JLabel lblEmployeeRegistration;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Employee_registration frame = new Employee_registration();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		initialize();
 	}
 
 	/**
-	 * Create the frame.
+	 * Initialize the contents of the frame.
 	 */
-	public Employee_registration() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(500, 500, 539, 729);
-		contentPane = new JPanel();
-		contentPane.setBackground(UIManager.getColor("InternalFrame.activeTitleGradient"));
-		contentPane.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(0, 0, 0)));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+	private void initialize() {
+		frame = new JFrame();
+		frame.getContentPane().setBackground(Color.PINK);
+		frame.setBounds(100, 100, 600, 400);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+
+		JLabel myMessage = new JLabel("");
+		myMessage.setBounds(95, 263, 351, 14);
+		frame.getContentPane().add(myMessage);
+
 		
-		textField = new JTextField();
-		textField.setBounds(202, 97, 155, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		JLabel addRecord = new JLabel("ADD RECORD");
+		addRecord.setFont(new Font("Tahoma", Font.BOLD, 14));
+		addRecord.setBounds(256, 11, 154, 14);
+		frame.getContentPane().add(addRecord);
+
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(202, 135, 155, 20);
-		contentPane.add(textField_1);
+		textFieldID = new JTextField();
+		textFieldID.setBounds(116, 37, 132, 20);
+		frame.getContentPane().add(textFieldID);
+		textFieldID.setColumns(10);
+
+		JLabel lblId = new JLabel("ID");
+		lblId.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblId.setBounds(26, 38, 46, 14);
+		frame.getContentPane().add(lblId);
+
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(202, 181, 155, 20);
-		contentPane.add(textField_2);
+		textFieldName = new JTextField();
+		textFieldName.setBounds(116, 82, 132, 20);
+		frame.getContentPane().add(textFieldName);
+		textFieldName.setColumns(10);
+
+		JLabel lblName = new JLabel("Name");
+		lblName.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblName.setBounds(26, 83, 46, 14);
+		frame.getContentPane().add(lblName);
+
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(202, 227, 155, 20);
-		contentPane.add(textField_3);
+		textFieldDeparetment = new JTextField();
+		textFieldDeparetment.setBounds(119, 209, 132, 20);
+		frame.getContentPane().add(textFieldDeparetment);
+		textFieldDeparetment.setColumns(10);
+
+		JLabel lblDepartment = new JLabel("Department");
+		lblDepartment.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblDepartment.setBounds(23, 212, 86, 17);
+		frame.getContentPane().add(lblDepartment);
+
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(202, 324, 155, 20);
-		contentPane.add(textField_4);
+		JTextArea textArea = new JTextArea();
+		textArea.setBounds(119, 260, 132, 36);
+		frame.getContentPane().add(textArea);
+
+		JLabel lblAdress = new JLabel("Address");
+		lblAdress.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblAdress.setBounds(26, 263, 72, 14);
+		frame.getContentPane().add(lblAdress);
+
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(202, 371, 155, 20);
-		contentPane.add(textField_5);
+		textFieldDesig = new JTextField();
+		textFieldDesig.setBounds(466, 37, 86, 20);
+		frame.getContentPane().add(textFieldDesig);
+		textFieldDesig.setColumns(10);
+
+		JLabel designation = new JLabel("Designation");
+		designation.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		designation.setBounds(346, 38, 76, 19);
+		frame.getContentPane().add(designation);
+
 		
-		JRadioButton rdbtnNzOrAus = new JRadioButton("NZ or AUS Citizen");
-		rdbtnNzOrAus.setBounds(202, 415, 109, 23);
-		contentPane.add(rdbtnNzOrAus);
+		textFieldSalary = new JTextField();
+		textFieldSalary.setBounds(466, 82, 86, 20);
+		frame.getContentPane().add(textFieldSalary);
+		textFieldSalary.setColumns(10);
+
+		JLabel salary = new JLabel("Weekly Salary");
+		salary.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		salary.setBounds(345, 83, 101, 19);
+		frame.getContentPane().add(salary);
+
 		
-		JRadioButton rdbtnPr = new JRadioButton("PR");
-		rdbtnPr.setBounds(327, 415, 47, 23);
-		contentPane.add(rdbtnPr);
+		textFieldStartD = new JFormattedTextField();
+		textFieldStartD.setToolTipText("eg-2017/07/20");
+		textFieldStartD.setBounds(466, 132, 86, 20);
+		frame.getContentPane().add(textFieldStartD);
+		textFieldStartD.setColumns(10);
+
+		JLabel startDate = new JLabel("Start Date");
+		startDate.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		startDate.setBounds(346, 133, 76, 14);
+		frame.getContentPane().add(startDate);
+
 		
-		JRadioButton rdbtnWorkVisa = new JRadioButton("Work Visa");
-		rdbtnWorkVisa.setBounds(397, 415, 73, 23);
-		contentPane.add(rdbtnWorkVisa);
+		textFieldEndD = new JFormattedTextField();
+		textFieldEndD.setToolTipText("2017/07/20");
+		textFieldEndD.setBounds(466, 190, 86, 20);
+		frame.getContentPane().add(textFieldEndD);
+		textFieldEndD.setColumns(10);
+
+		JLabel endDate = new JLabel("End Date");
+		endDate.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		endDate.setBounds(346, 190, 76, 17);
+		frame.getContentPane().add(endDate);
+
 		
-		JRadioButton rdbtnStudent = new JRadioButton("Student");
-		rdbtnStudent.setBounds(202, 451, 73, 23);
-		contentPane.add(rdbtnStudent);
-		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(202, 490, 155, 20);
-		contentPane.add(textField_6);
-		
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
-		textField_7.setBounds(202, 532, 155, 20);
-		contentPane.add(textField_7);
-		
-		rdbtnMale = new JRadioButton("Male");
-		rdbtnMale.setBounds(202, 270, 58, 23);
-		contentPane.add(rdbtnMale);
-		
-		rdbtnFemale = new JRadioButton("Female");
-		rdbtnFemale.setBounds(281, 270, 76, 23);
-		contentPane.add(rdbtnFemale);
-		
-		textField_8 = new JTextField();
-		textField_8.setColumns(10);
-		textField_8.setBounds(202, 579, 155, 20);
-		contentPane.add(textField_8);
-		
-		textField_9 = new JTextField();
-		textField_9.setColumns(10);
-		textField_9.setBounds(202, 620, 155, 20);
-		contentPane.add(textField_9);
-		
-		JButton btnNewButton = new JButton("Submit");
-		btnNewButton.setBackground(Color.GREEN);
-		btnNewButton.setBounds(370, 656, 89, 23);
-		contentPane.add(btnNewButton);
-		
-		JButton btnReset = new JButton("Reset");
-		btnReset.setBounds(222, 656, 89, 23);
-		contentPane.add(btnReset);
-		
-		JButton btnLogin = new JButton("Login");
-		btnLogin.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnLogin.addActionListener(new ActionListener() {
+		JLabel lblGender = new JLabel("Gender");
+		lblGender.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblGender.setBounds(26, 173, 46, 14);
+		frame.getContentPane().add(lblGender);
+
+		JRadioButton rdbtnMale = new JRadioButton("Male");
+		rdbtnMale.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				gender = "Male";
 			}
 		});
-		btnLogin.setBounds(75, 656, 89, 23);
-		contentPane.add(btnLogin);
+		rdbtnMale.setBounds(116, 171, 59, 23);
+		frame.getContentPane().add(rdbtnMale);
+
+		JRadioButton rdbtnFemale = new JRadioButton("Female");
+		rdbtnFemale.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gender = "Female";
+			}
+		});
+		rdbtnFemale.setBounds(181, 171, 86, 23);
+		frame.getContentPane().add(rdbtnFemale);
+
+		ButtonGroup group = new ButtonGroup();
+		group.add(rdbtnFemale);
+		group.add(rdbtnMale);
+
 		
-		JLabel lblFirstName = new JLabel("First Name");
-		lblFirstName.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblFirstName.setBounds(65, 100, 73, 14);
-		contentPane.add(lblFirstName);
+		JLabel lblNewLabel = new JLabel("DOB");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel.setBounds(26, 133, 46, 14);
+		frame.getContentPane().add(lblNewLabel);
+
+		textFieldDob = new JTextField();
+		textFieldDob.setBounds(116, 130, 132, 20);
+		frame.getContentPane().add(textFieldDob);
+		textFieldDob.setColumns(10);
+
+		JLabel lblNoOfDays = new JLabel("No. of days worked");
+		lblNoOfDays.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNoOfDays.setBounds(346, 243, 126, 19);
+		frame.getContentPane().add(lblNoOfDays);
+
+		textNoOfDays = new JTextField();
+		textNoOfDays.setBounds(488, 242, 46, 20);
+		frame.getContentPane().add(textNoOfDays);
+		textNoOfDays.setColumns(10);
+
 		
-		lblLastName = new JLabel("Last Name");
-		lblLastName.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblLastName.setBounds(65, 138, 73, 14);
-		contentPane.add(lblLastName);
-		
-		lblEmployeeId = new JLabel("Employee ID");
-		lblEmployeeId.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblEmployeeId.setBounds(65, 184, 99, 14);
-		contentPane.add(lblEmployeeId);
-		
-		lblDob = new JLabel("D-O-B");
-		lblDob.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblDob.setBounds(65, 230, 73, 14);
-		contentPane.add(lblDob);
-		
-		lblGender = new JLabel("Gender");
-		lblGender.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblGender.setBounds(65, 274, 73, 14);
-		contentPane.add(lblGender);
-		
-		lblContact = new JLabel("Contact #");
-		lblContact.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblContact.setBounds(65, 327, 73, 14);
-		contentPane.add(lblContact);
-		
-		lblAddress = new JLabel("Address");
-		lblAddress.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblAddress.setBounds(65, 374, 73, 14);
-		contentPane.add(lblAddress);
-		
-		lblVisaStatus = new JLabel("Visa Status");
-		lblVisaStatus.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblVisaStatus.setBounds(65, 419, 89, 14);
-		contentPane.add(lblVisaStatus);
-		
-		lblDateOfHiring = new JLabel("Date Hired");
-		lblDateOfHiring.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblDateOfHiring.setBounds(65, 493, 73, 14);
-		contentPane.add(lblDateOfHiring);
-		
-		lblPosition = new JLabel("Position");
-		lblPosition.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblPosition.setBounds(65, 535, 73, 14);
-		contentPane.add(lblPosition);
-		
-		lblPassword = new JLabel("Password");
-		lblPassword.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblPassword.setBounds(65, 582, 73, 14);
-		contentPane.add(lblPassword);
-		
-		lblConfirmPassword = new JLabel("Confirm Password");
-		lblConfirmPassword.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblConfirmPassword.setBounds(65, 623, 127, 14);
-		contentPane.add(lblConfirmPassword);
-		
-		lblWelcomeEnterThe = new JLabel("Welcome! Enter the Employee details");
-		lblWelcomeEnterThe.setFont(new Font("Elephant", Font.ITALIC, 15));
-		lblWelcomeEnterThe.setBounds(129, 61, 341, 25);
-		contentPane.add(lblWelcomeEnterThe);
-		
-		lblEmployeeRegistration = new JLabel("Employee Registration");
-		lblEmployeeRegistration.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblEmployeeRegistration.setBounds(174, 23, 215, 27);
-		contentPane.add(lblEmployeeRegistration);
+		JButton add = new JButton("ADD");
+		add.setBackground(Color.GREEN);
+		add.setFont(new Font("Tahoma", Font.BOLD, 14));
+		add.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+
+					int id = Integer.parseInt(textFieldID.getText());
+					String name = textFieldName.getText().toString();
+					String dept = textFieldDeparetment.getText().toString();
+					String add = textArea.getText().toString();
+					int salary = Integer.parseInt(textFieldSalary.getText());
+					String designation = textFieldDesig.getText().toString();
+					String startDate = textFieldStartD.getText();
+					String endDate = textFieldEndD.getText();
+					String dob = textFieldDob.getText();
+					int no_OfDays = Integer.parseInt(textNoOfDays.getText());
+
+					
+					if (name instanceof String && add instanceof String && dept instanceof String
+							&& designation instanceof String && DateFormat(startDate) && DateFormat(endDate)
+							&& DateFormat(dob)) {
+						
+						if (!checkID(id)) {
+
+							addRecords(id, name, dept, add, designation, salary, startDate, endDate, dob, gender,
+									no_OfDays);
+							JOptionPane.showMessageDialog(frame, "Records added sucessfully");
+						} else {
+							JOptionPane.showMessageDialog(frame, "ID is already used");
+						}
+					} else {
+						JOptionPane.showMessageDialog(frame, "Some fileds are invalid");
+					}
+
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(frame, "Some fileds are invalid");
+				}
+
+			}
+		});
+		add.setBounds(251, 316, 89, 23);
+		frame.getContentPane().add(add);
+
 	}
 }

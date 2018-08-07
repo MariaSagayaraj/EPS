@@ -45,7 +45,7 @@ public class Login extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
-		contentPane.setBackground(UIManager.getColor("InternalFrame.activeTitleBackground"));
+		contentPane.setBackground(Color.PINK);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -70,15 +70,6 @@ public class Login extends JFrame {
 		btnNewButton.setBounds(298, 178, 89, 23);
 		contentPane.add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("Reset");
-		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton_1.setBounds(164, 178, 89, 23);
-		contentPane.add(btnNewButton_1);
-		
 		textField = new JTextField();
 		textField.setBounds(197, 61, 110, 20);
 		contentPane.add(textField);
@@ -91,17 +82,8 @@ public class Login extends JFrame {
 		
 		JLabel lblNewLabel_2 = new JLabel("Employee Login");
 		lblNewLabel_2.setBackground(Color.PINK);
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel_2.setBounds(170, 11, 109, 23);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
+		lblNewLabel_2.setBounds(170, 11, 137, 23);
 		contentPane.add(lblNewLabel_2);
-		
-		JButton btnRegister = new JButton("Register");
-		btnRegister.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnRegister.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnRegister.setBounds(43, 179, 89, 23);
-		contentPane.add(btnRegister);
 	}
 }
