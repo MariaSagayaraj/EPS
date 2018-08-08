@@ -243,7 +243,7 @@ public class Add {
 		frame.getContentPane().add(textFieldDob);
 		textFieldDob.setColumns(10);
 
-		JLabel lblNoOfDays = new JLabel("No. of days worked");
+		JLabel lblNoOfDays = new JLabel("Days worked");
 		lblNoOfDays.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNoOfDays.setBounds(346, 243, 126, 19);
 		frame.getContentPane().add(lblNoOfDays);
@@ -286,11 +286,11 @@ public class Add {
 							JOptionPane.showMessageDialog(frame, "ID is already used");
 						}
 					} else {
-						JOptionPane.showMessageDialog(frame, "Some fileds are invalid");
+						JOptionPane.showMessageDialog(frame, "invalid fields");
 					}
 
 				} catch (Exception e) {
-					JOptionPane.showMessageDialog(frame, "Some fileds are invalid");
+					JOptionPane.showMessageDialog(frame, "Invalid fields");
 				}
 
 			}

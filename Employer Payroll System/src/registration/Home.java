@@ -63,7 +63,7 @@ public class Home {
 
 			}
 		});
-		btnNewButton.setBounds(220, 70, 89, 23);
+		btnNewButton.setBounds(220, 79, 89, 23);
 		frame.getContentPane().add(btnNewButton);
 
 		
@@ -75,20 +75,8 @@ public class Home {
 				new Delete().frame.setVisible(true);
 			}
 		});
-		btnNewButton_1.setBounds(220, 120, 89, 23);
+		btnNewButton_1.setBounds(220, 138, 89, 23);
 		frame.getContentPane().add(btnNewButton_1);
-
-		
-		JButton btnNewButton_2 = new JButton("Update");
-		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnNewButton_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				new Update().frame.setVisible(true);
-			}
-		});
-		btnNewButton_2.setBounds(220, 224, 89, 23);
-		frame.getContentPane().add(btnNewButton_2);
 
 		
 		JButton btnNewButton_3 = new JButton("View");
@@ -99,7 +87,7 @@ public class Home {
 				new View().frame.setVisible(true);
 			}
 		});
-		btnNewButton_3.setBounds(220, 276, 89, 23);
+		btnNewButton_3.setBounds(220, 256, 89, 23);
 		frame.getContentPane().add(btnNewButton_3);
 
 		
@@ -111,7 +99,7 @@ public class Home {
 				new Search().frame.setVisible(true);
 			}
 		});
-		btnNewButton_4.setBounds(220, 168, 89, 23);
+		btnNewButton_4.setBounds(220, 196, 89, 23);
 		frame.getContentPane().add(btnNewButton_4);
 	}
 }

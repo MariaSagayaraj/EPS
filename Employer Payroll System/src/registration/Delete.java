@@ -13,6 +13,7 @@ public class Delete {
 	import java.sql.DriverManager;
 	import java.sql.Statement;
 	import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 
 public JFrame frame;
@@ -48,6 +49,7 @@ public void delete(int id) {
 		 */
 		private void initialize() {
 			frame = new JFrame();
+			frame.getContentPane().setBackground(Color.PINK);
 			frame.setBounds(100, 100, 450, 300);
 			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			frame.getContentPane().setLayout(null);
@@ -74,7 +76,7 @@ public void delete(int id) {
 						int id = Integer.parseInt(textField.getText());
 						delete(id);
 					}catch(Exception exception){
-						JOptionPane.showMessageDialog(frame, "ID not present in the table");
+						JOptionPane.showMessageDialog(frame, "Invalid ID");
 					}
 				}
 			});
