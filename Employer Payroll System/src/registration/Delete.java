@@ -15,11 +15,9 @@ public class Delete {
 	import java.awt.event.ActionEvent;
 
 
-		public JFrame frame;
-		private JTextField textField;
-		
-
-		public void delete(int id) {
+public JFrame frame;
+private JTextField textField;
+public void delete(int id) {
 			String url = "jdbc:mysql://localhost:3306/mydatabase";
 			String user_name = "root";
 			String pass = "";
@@ -32,10 +30,8 @@ public class Delete {
 			
 			int rs = st.executeUpdate(query);
 			System.out.println(rs);
-			//When the record gets deleted just show the dialog with following message
 			JOptionPane.showMessageDialog(frame, "Record Deleted Succesfully");
 			}catch(Exception e){
-				//if some error happens just throw the exception
 				JOptionPane.showMessageDialog(frame, "ID not present in the table");
 			}
 		
@@ -56,37 +52,28 @@ public class Delete {
 			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			frame.getContentPane().setLayout(null);
 			
-			//TextField of the id
 			textField = new JTextField();
 			textField.setBounds(163, 61, 86, 20);
 			frame.getContentPane().add(textField);
 			textField.setColumns(10);
 			
-			//Label - id
 			JLabel lblNewLabel = new JLabel("ID");
 			lblNewLabel.setBounds(87, 61, 46, 14);
 			frame.getContentPane().add(lblNewLabel);
 			
 			
-			//Label Delete Record which is on the top
 			JLabel lblNewLabel_1 = new JLabel("Delete Record");
 			lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
 			lblNewLabel_1.setBounds(158, 21, 105, 14);
 			frame.getContentPane().add(lblNewLabel_1);
 			
-			//Delete Button
 			JButton duttonDelete = new JButton("delete");
 			duttonDelete.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					//If the textField value if of int type it will get 
-					//parse or else the catch block will get called that means the 
-					//value entered in the field in not of type int so we give an exception
 					try{
 						int id = Integer.parseInt(textField.getText());
-						//This method will delete the record hole record of that id
 						delete(id);
 					}catch(Exception exception){
-						//This will show a dialog with the message below
 						JOptionPane.showMessageDialog(frame, "ID not present in the table");
 					}
 				}
@@ -96,5 +83,3 @@ public class Delete {
 		}
 	}
 
-
-}
