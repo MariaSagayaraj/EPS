@@ -1,7 +1,8 @@
-package LOGIN;
+package registration;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.FocusTraversalPolicy;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,7 +19,7 @@ import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
 import java.awt.Font;
 
-public class assignment1 extends JFrame {
+public class Payroll extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -37,7 +38,7 @@ public class assignment1 extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					assignment1 frame = new assignment1();
+					Payroll frame = new Payroll();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,8 +49,9 @@ public class assignment1 extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @return 
 	 */
-	public assignment1() {
+	public double Payroll() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 559);
 		contentPane = new JPanel();
@@ -94,7 +96,7 @@ public class assignment1 extends JFrame {
 		contentPane.add(textField_2);
 		textField_2.setColumns(10);
 		
-		JLabel lblNewLabel_4 = new JLabel("Total no.of hours worked");
+		JLabel lblNewLabel_4 = new JLabel("Hours");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel_4.setBounds(44, 190, 140, 14);
 		contentPane.add(lblNewLabel_4);
@@ -104,7 +106,7 @@ public class assignment1 extends JFrame {
 		contentPane.add(textField_3);
 		textField_3.setColumns(10);
 		
-		JLabel lblNewLabel_5 = new JLabel("Pay Rate / hour");
+		JLabel lblNewLabel_5 = new JLabel("Rate");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel_5.setBounds(44, 225, 97, 14);
 		contentPane.add(lblNewLabel_5);
@@ -143,7 +145,7 @@ public class assignment1 extends JFrame {
 		contentPane.add(textField_6);
 		textField_6.setColumns(10);
 		
-		JLabel lblNewLabel_8 = new JLabel("Total Pay");
+		JLabel lblNewLabel_8 = new JLabel("Pay");
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel_8.setBounds(44, 447, 80, 14);
 		contentPane.add(lblNewLabel_8);
@@ -152,6 +154,21 @@ public class assignment1 extends JFrame {
 		textField_7.setBounds(228, 444, 97, 20);
 		contentPane.add(textField_7);
 		textField_7.setColumns(10);
-		contentPane.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{lblNewLabel, lblNewLabel_1, textField, lblNewLabel_2, textField_1, lblNewLabel_3, textField_2, lblNewLabel_4, textField_3, lblNewLabel_5, textField_4, lblNewLabel_6, separator, lblNewLabel_7, textField_5, lblTo, textField_6, lblNewLabel_8, textField_7}));
-	}
+		contentPane.setFocusTraversalPolicy(new FocusTraversalPolicy(new Component[]{lblNewLabel, lblNewLabel_1, textField, lblNewLabel_2, textField_1, lblNewLabel_3, textField_2, lblNewLabel_4, textField_3, lblNewLabel_5, textField_4, lblNewLabel_6, separator, lblNewLabel_7, textField_5, lblTo, textField_6, lblNewLabel_8, textField_7}));
+	
+		int Hours;
+	    double Rate;
+		double Pay;
+	      double calculatePay (int Hours , double Rate);
+	      {
+	          if ( Hours > 40 )
+	          { 
+	              int extraHours = Hours - 40;
+	              Pay = ( 40 * Rate ) + ( extraHours * Rate );
+	          }
+	          else Pay = Hours * Rate;
+
+	          return Pay;
+	      }
+	  }
 }

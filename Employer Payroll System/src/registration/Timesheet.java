@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.SystemColor;
+import java.awt.Font;
 
 public class Timesheet extends JFrame {
 
@@ -47,13 +48,14 @@ public class Timesheet extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 740, 371);
 		contentPane = new JPanel();
-		contentPane.setBackground(SystemColor.inactiveCaption);
+		contentPane.setBackground(Color.PINK);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("WEEKLY EMPLOYEE TIME SHEET");
-		lblNewLabel.setBounds(262, 21, 168, 14);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNewLabel.setBounds(262, 21, 253, 20);
 		contentPane.add(lblNewLabel);
 		
 		table = new JTable();
